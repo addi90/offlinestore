@@ -76,14 +76,38 @@ class VRScene extends React.Component {
             easing="linear" />
         </Entity>
 
-        <a-plane 
-        event-set__1="_event: mouseenter; opacity:1" 
-        event-set__2="_event: mouseleave; opacity:0.2" 
-        material="opacity:0.2" 
-        geometry="primitive:plane" 
-        position="-42.72 5.61 -2.96" 
-        rotation="0 90 0" 
-        scale="9 24 1"></a-plane>
+        <a-entity>
+          
+          <a-plane 
+            material="opacity:0.3" 
+            geometry="primitive:plane" 
+            position="-42.72 5.61 -2.96" 
+            rotation="0 90 0" 
+            scale="9 24 1">
+
+            <a-animation
+              begin="mouseenter"
+              attribute="scale"
+              to="30 27 1"
+              easing="linear" />
+            <a-animation
+              begin="mouseleave"
+              attribute="scale"
+              to="9 24 1"
+              easing="linear" />
+
+            <a-animation
+              begin="mouseenter"
+              attribute="opacity"
+              to="1"
+              easing="linear" />
+            <a-animation
+              begin="mouseleave"
+              attribute="opacity"
+              to="0.3"
+              easing="linear" />
+          </a-plane>
+        </a-entity>
       </Scene>
     );
   }
