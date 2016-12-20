@@ -6,6 +6,7 @@ import {Entity, Scene} from 'aframe-react';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import Assets from './components/Assets';
 import Camera from './components/Camera';
 import Text from './components/Text';
 import Sky from './components/Sky';
@@ -32,30 +33,16 @@ class VRScene extends React.Component {
 >
           </a-cursor>
         </Camera>
+        <Assets />
 
         <Sky src="url(assets/Panorama-360-Grad5.jpg)"/>
 
-        <Text
-          text='Hello World!'
-          color='#DADADA'
-          position='-1.75 1 -3'/>
-
-        <Entity light={{type: 'ambient', color: '#888'}}/>
-        <Entity light={{type: 'directional', intensity: 0.5}} position='-1 1 0'/>
-        <Entity light={{type: 'directional', intensity: 1}} position='1 1 0'/>
-
-        <Entity
-          animation__rot={{property: 'rotation', dur: 2000, loop: true, to: '360 360 360'}}
-          animation__sca={{property: 'scale', dir: 'alternate', dur: 100, loop: true, to: '1.1 1.1 1.1'}}
-          geometry='primitive: box'
-          material={{color: this.state.color, opacity: 0.6}}
-          position='0 -0.5 -3'
-          onClick={this.changeColor.bind(this)}>
-          <Entity
-            animation__scale={{property: 'scale', dir: 'alternate', dur: 100, loop: true, to: '2 2 2'}}
-            geometry='primitive: box; depth: 0.2; height: 0.2; width: 0.2'
-            material={{color: '#24CAFF'}}/>
-        </Entity>
+        <a-obj-model 
+          position='20 0 20'
+          rotation='-90 0 0'
+          scale="0.25 0.25 0.25" 
+          src="#nike-blueorange-obj" 
+          mtl="#nike-blueorange-mtl"></a-obj-model>
       </Scene>
     );
   }
