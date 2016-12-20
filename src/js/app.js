@@ -104,6 +104,7 @@ class VRScene extends React.Component {
             <a-animation
               begin="mouseleave"
               attribute="opacity"
+              from="1"
               to="0.3"
               easing="linear" />
           </a-plane>
