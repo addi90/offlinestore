@@ -14,17 +14,17 @@ import Sky from './components/Sky';
 class VRScene extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {color: 'red'};
+    this.state = {
+      scale: '0.25 0.25 0.25'
+    };
   }
 
-  changeColor() {
-    const colors = ['red', 'orange', 'yellow', 'green', 'blue'];
-    this.setState({
-      color: colors[Math.floor(Math.random() * colors.length)]
-    });
+  _onItemSelect () {
+    this.setState({ scale: '.5 .5 .5'});
   }
 
   render () {
+
     return (
       <Scene>
         <Camera>
@@ -37,12 +37,23 @@ class VRScene extends React.Component {
 
         <Sky src="url(assets/Panorama-360-Grad5.jpg)"/>
 
-        <a-obj-model 
+        <Entity
+          onClick={() => this._onItemSelect()}
           position='20 0 20'
           rotation='-90 0 0'
+          scale={this.state.scale} 
+          obj-model="obj: #nike-blueorange-obj; mtl: #nike-blueorange-mtl"
+        />
+
+        <Entity
+          onClick={() => {
+            console.log('entity model clicked now'); 
+          }}
+          position='-20 0 -20'
+          rotation='-90 0 0'
           scale="0.25 0.25 0.25" 
-          src="#nike-blueorange-obj" 
-          mtl="#nike-blueorange-mtl"></a-obj-model>
+          obj-model="obj: #nike-free-obj; mtl: #nike-free-mtl"
+        />
       </Scene>
     );
   }
