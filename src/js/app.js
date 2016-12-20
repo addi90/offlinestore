@@ -1,5 +1,6 @@
 import 'aframe';
 import 'aframe-animation-component';
+import 'aframe-event-set-component';
 import 'aframe-text-component';
 import 'babel-polyfill';
 import {Entity, Scene} from 'aframe-react';
@@ -14,13 +15,9 @@ import Sky from './components/Sky';
 class VRScene extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      scale: '0.25 0.25 0.25'
-    };
   }
 
   _onItemSelect () {
-    this.setState({ scale: '.5 .5 .5'});
   }
 
   render () {
@@ -39,9 +36,13 @@ class VRScene extends React.Component {
 
         <Entity
           onClick={() => this._onItemSelect()}
+          event-set__1="_event: mousedown; scale: 0.25 0.25 0.25"
+          event-set__2="_event: mouseup; scale: 0.5 0.5 0.5"
+          event-set__3="_event: mouseenter; scale: 0.5 0.5 0.5"
+          event-set__4="_event: mouseleave; scale: 0.25 0.25 0.25"
           position='20 0 20'
           rotation='-90 0 0'
-          scale={this.state.scale} 
+          scale='0.25 0.25 0.25' 
           obj-model="obj: #nike-blueorange-obj; mtl: #nike-blueorange-mtl"
         />
 
@@ -49,6 +50,10 @@ class VRScene extends React.Component {
           onClick={() => {
             console.log('entity model clicked now'); 
           }}
+          event-set__1="_event: mousedown; scale: 0.25 0.25 0.25"
+          event-set__2="_event: mouseup; scale: 0.5 0.5 0.5"
+          event-set__3="_event: mouseenter; scale: 0.5 0.5 0.5"
+          event-set__4="_event: mouseleave; scale: 0.25 0.25 0.25"
           position='-20 0 -20'
           rotation='-90 0 0'
           scale="0.25 0.25 0.25" 
