@@ -9,19 +9,25 @@ import ReactDOM from 'react-dom';
 
 import Assets from './components/Assets';
 import Camera from './components/Camera';
-import Text from './components/Text';
 import Sky from './components/Sky';
+
+// event-set__1="_event: mousedown; scale: 0.25 0.25 0.25"
+// event-set__2="_event: mouseup; scale: 0.5 0.5 0.5"
+// event-set__3="_event: mouseenter; scale: 0.5 0.5 0.5"
+// event-set__4="_event: mouseleave; scale: 0.25 0.25 0.25"
 
 class VRScene extends React.Component {
   constructor(props) {
     super(props);
   }
 
-  _onItemSelect () {
+  _onItemSelect () {}
+
+  _rotateIndefinite() {
+    const el = this.el;
   }
 
   render () {
-
     return (
       <Scene>
         <Camera>
@@ -48,17 +54,27 @@ class VRScene extends React.Component {
 
         <Entity
           onClick={() => {
-            console.log('entity model clicked now'); 
+            console.log('entity model clicked now');
+            this._onItemSelect();
           }}
-          event-set__1="_event: mousedown; scale: 0.25 0.25 0.25"
-          event-set__2="_event: mouseup; scale: 0.5 0.5 0.5"
-          event-set__3="_event: mouseenter; scale: 0.5 0.5 0.5"
-          event-set__4="_event: mouseleave; scale: 0.25 0.25 0.25"
           position='-20 0 -20'
           rotation='-90 0 0'
-          scale="0.25 0.25 0.25" 
-          obj-model="obj: #nike-free-obj; mtl: #nike-free-mtl"
-        />
+          scale="0.25 0.25 0.25"
+          obj-model="obj: #nike-free-obj; mtl: #nike-free-mtl">
+          <a-animation
+            begin="mouseenter"
+            end="mouseleave"
+            attribute="rotation"
+            to="-90 360 0"
+            repeat="indefinite"
+            easing="linear" />
+          <a-animation
+            begin="mouseenter"
+            end="mouseleave"
+            attribute="scale"
+            to=".5 .5 .5"
+            easing="linear" />
+        </Entity>
       </Scene>
     );
   }
