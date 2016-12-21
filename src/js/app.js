@@ -11,10 +11,21 @@ import Assets from './components/Assets';
 import Camera from './components/Camera';
 import Sky from './components/Sky';
 
-// event-set__1="_event: mousedown; scale: 0.25 0.25 0.25"
-// event-set__2="_event: mouseup; scale: 0.5 0.5 0.5"
-// event-set__3="_event: mouseenter; scale: 0.5 0.5 0.5"
-// event-set__4="_event: mouseleave; scale: 0.25 0.25 0.25"
+AFRAME.registerComponent('event-proxy', {
+  schema: {
+    listen: { default: '' },
+    target: { type: 'selector' },
+    emit: { default: '' }
+  },
+  update: function () {
+    console.log(arguments);
+    var data = this.data;
+    this.el.addEventListener(data.listen, function () {
+      console.log(arguments);
+      data.target.emit(data.emit);
+    });
+  }
+});
 
 class VRScene extends React.Component {
   constructor(props) {
@@ -22,10 +33,6 @@ class VRScene extends React.Component {
   }
 
   _onItemSelect () {}
-
-  _rotateIndefinite() {
-    const el = this.el;
-  }
 
   render () {
     return (
@@ -52,7 +59,7 @@ class VRScene extends React.Component {
           obj-model="obj: #nike-blueorange-obj; mtl: #nike-blueorange-mtl"
         />
 
-        <Entity
+        <Entity id="shoe"
           onClick={() => {
             console.log('entity model clicked now');
             this._onItemSelect();
@@ -62,28 +69,22 @@ class VRScene extends React.Component {
           scale="0.25 0.25 0.25"
           obj-model="obj: #nike-free-obj; mtl: #nike-free-mtl">
           <a-animation
-            begin="mouseenter"
-            end="mouseleave"
-            attribute="rotation"
-            to="-90 360 0"
-            repeat="indefinite"
-            easing="linear" />
-          <a-animation
-            begin="mouseenter"
-            end="mouseleave"
-            attribute="scale"
-            to=".5 .5 .5"
-            easing="linear" />
+             begin="rotate"
+             end="pause"
+             attribute="rotation"
+             to="-90 360 0"
+             repeat="indefinite"
+             easing="linear" />
         </Entity>
 
         <a-entity>
-          
           <a-plane 
             material="opacity:0.3" 
             geometry="primitive:plane" 
             position="-42.72 5.61 -2.96" 
             rotation="0 90 0" 
-            scale="9 24 1">
+            scale="9 24 1"
+            event-proxy="listen: mouseenter; target: #shoe; emit: rotate;">
 
             <a-animation
               begin="mouseenter"
