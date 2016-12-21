@@ -13,17 +13,18 @@ import Sky from './components/Sky';
 
 AFRAME.registerComponent('event-proxy', {
   schema: {
-    listen: { default: '' },
-    target: { type: 'selector' },
-    emit: { default: '' }
+    listen1: {default: ''},
+    target1: {type: 'selector'},
+    emit1: {default: ''},
+    listen2: {default: ''},
+    target2: {type: 'selector'},
+    emit2: {default: ''}
   },
   update: function () {
-    console.log(arguments);
-    var data = this.data;
-    this.el.addEventListener(data.listen, function () {
-      console.log(arguments);
-      data.target.emit(data.emit);
-    });
+    const data = this.data;
+    const el = this.el;
+    el.addEventListener(data.listen1, () => data.target1.emit(data.emit1));
+    el.addEventListener(data.listen2, () => data.target2.emit(data.emit2));
   }
 });
 
@@ -84,7 +85,7 @@ class VRScene extends React.Component {
             position="-42.72 5.61 -2.96" 
             rotation="0 90 0" 
             scale="9 24 1"
-            event-proxy="listen: mouseenter; target: #shoe; emit: rotate;">
+            event-proxy="listen1: mouseenter; target1: #shoe; emit1: rotate; listen2: mouseleave; target2: #shoe; emit2: pause;">
 
             <a-animation
               begin="mouseenter"
