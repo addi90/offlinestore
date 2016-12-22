@@ -31,11 +31,29 @@ AFRAME.registerComponent('event-proxy', {
 class VRScene extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      _isItemAddedToCart: false
+    }
   }
 
-  _onItemSelect () {}
+  _onItemSelect () {
+    this.setState({_isItemAddedToCart: true});
+  }
 
   render () {
+    const pdp = {
+      item1: {
+        name: 'Nike shoes',
+        description: 'Blue shoes',
+        price: '99.67'
+      },
+      item2: {
+        name: 'Nike shoes',
+        description: 'Blue Orange shoes',
+        price: '109.67'
+      }
+    };
+
     return (
       <Scene>
         <Camera>
@@ -48,24 +66,91 @@ class VRScene extends React.Component {
 
         <Sky src="url(assets/Panorama-360-Grad5.jpg)"/>
 
-        <Entity
-          onClick={() => this._onItemSelect()}
-          event-set__1="_event: mousedown; scale: 0.25 0.25 0.25"
-          event-set__2="_event: mouseup; scale: 0.5 0.5 0.5"
-          event-set__3="_event: mouseenter; scale: 0.5 0.5 0.5"
-          event-set__4="_event: mouseleave; scale: 0.25 0.25 0.25"
-          position='20 0 20'
+        <Entity id="shoe1"
+          position='13.47 0 37.37'
           rotation='-90 0 0'
-          scale='0.25 0.25 0.25' 
-          obj-model="obj: #nike-blueorange-obj; mtl: #nike-blueorange-mtl"
-        />
+          scale="0.25 0.25 0.25"
+          obj-model="obj: #nike-blueorange-obj; mtl: #nike-blueorange-mtl">
+          <a-animation
+             begin="rotate"
+             end="pause"
+             attribute="rotation"
+             to="-90 360 0"
+             easing="linear" />
+          <a-animation
+             begin="rotate"
+             attribute="opacity"
+             from='0'
+             to="0.9"
+             easing="linear" />
+          <a-animation
+             begin="pause"
+             attribute="opacity`"
+             from='0.9'
+             to="0"
+             easing="linear" />
+        </Entity>
+
+        <a-entity>
+          <a-plane 
+            material="opacity:0.1" 
+            geometry="primitive:plane" 
+            position="-15 5.61 50" 
+            rotation="0 180 0" 
+            scale="30 27 1" 
+            event-proxy="listen1: mouseenter; target1: #shoe1; emit1: rotate; listen2: mouseleave; target2: #shoe1; emit2: pause;">
+
+            <a-animation
+              begin="mouseenter"
+              attribute="opacity"
+              from="0.1"
+              to="0.8"
+              easing="linear" />
+            <a-animation
+              begin="mouseleave"
+              attribute="opacity"
+              from="0.8"
+              to="0.1"
+              easing="linear" />
+          </a-plane>
+
+
+          <Entity
+            position="-2.45 15 48.83"
+            rotation='0 180 0'
+            material={{color: 'black'}}
+            event-proxy="listen1: mouseenter; target1: #shoe; emit1: rotate; listen2: mouseleave; target2: #shoe; emit2: pause;"
+            text={{text: pdp.item2.name, size: 2.5}} />
+          
+          <Entity
+            position="-2.45 11.41 48.83"
+            rotation='0 180 0'            
+            material={{color: 'black'}}
+            event-proxy="listen1: mouseenter; target1: #shoe1; emit1: rotate; listen2: mouseleave; target2: #shoe1; emit2: pause;"
+            text={{text: pdp.item2.description, size: 1.5}} />
+
+          <Entity
+            position="-2.45 8.41 48.83"  
+            rotation='0 180 0'                    
+            material={{color: 'black'}}
+            event-proxy="listen1: mouseenter; target1: #shoe1; emit1: rotate; listen2: mouseleave; target2: #shoe1; emit2: pause;"
+            text={{text: pdp.item2.price, size: 1.5}} >
+          </Entity>
+
+          <Entity
+              position="-2.45 5 48.83"
+              rotation='0 180 0'
+              event-proxy="listen1: mouseenter; target1: #shoe1; emit1: rotate; listen2: mouseleave; target2: #shoe1; emit2: pause;"
+              onClick={() => this._onItemSelect()}
+              material={{color: 'green'}}
+              text={{text: 'Add to cart', size: 1.5}} />
+        </a-entity>
+
+
+
 
         <Entity id="shoe"
-          onClick={() => {
-            console.log('entity model clicked now');
-            this._onItemSelect();
-          }}
-          position='-20 0 -20'
+          position='-20 0 -14.38'
           rotation='-90 0 0'
           scale="0.25 0.25 0.25"
           obj-model="obj: #nike-free-obj; mtl: #nike-free-mtl">
@@ -74,43 +159,73 @@ class VRScene extends React.Component {
              end="pause"
              attribute="rotation"
              to="-90 360 0"
-             repeat="indefinite"
              easing="linear" />
         </Entity>
 
         <a-entity>
           <a-plane 
-            material="opacity:0.3" 
+            material="opacity:0.1" 
             geometry="primitive:plane" 
-            position="-42.72 5.61 -2.96" 
+            position="-43.75 5.61 -2.96" 
             rotation="0 90 0" 
-            scale="9 24 1"
+            scale="30 27 1" 
             event-proxy="listen1: mouseenter; target1: #shoe; emit1: rotate; listen2: mouseleave; target2: #shoe; emit2: pause;">
 
             <a-animation
               begin="mouseenter"
-              attribute="scale"
-              to="30 27 1"
-              easing="linear" />
-            <a-animation
-              begin="mouseleave"
-              attribute="scale"
-              to="9 24 1"
-              easing="linear" />
-
-            <a-animation
-              begin="mouseenter"
               attribute="opacity"
-              from="0.3"
-              to="1"
+              from="0.1"
+              to="0.8"
               easing="linear" />
             <a-animation
               begin="mouseleave"
               attribute="opacity"
-              from="1"
-              to="0.3"
+              from="0.8"
+              to="0.1"
               easing="linear" />
           </a-plane>
+
+
+          <Entity
+            position="-42.45 15 8.83"
+            rotation='0 90 0'
+            material={{color: 'black'}}
+            event-proxy="listen1: mouseenter; target1: #shoe; emit1: rotate; listen2: mouseleave; target2: #shoe; emit2: pause;"
+            text={{text: pdp.item1.name, size: 2.5}} />
+          
+          <Entity
+            position="-42.45 11.41 8.83"
+            rotation='0 90 0'            
+            material={{color: 'black'}}
+            event-proxy="listen1: mouseenter; target1: #shoe; emit1: rotate; listen2: mouseleave; target2: #shoe; emit2: pause;"
+            text={{text: pdp.item1.description, size: 1.5}} />
+
+          <Entity
+            position="-42.45 8.41 8.83"  
+            rotation='0 90 0'                    
+            material={{color: 'black'}}
+            event-proxy="listen1: mouseenter; target1: #shoe; emit1: rotate; listen2: mouseleave; target2: #shoe; emit2: pause;"
+            text={{text: pdp.item1.price, size: 1.5}} >
+          </Entity>
+
+          {
+            this.state._isItemAddedToCart 
+            ? <Entity
+              position="-42.45 5 8.83"
+              rotation='0 90 0'
+              event-proxy="listen1: mouseenter; target1: #shoe; emit1: rotate; listen2: mouseleave; target2: #shoe; emit2: pause;"
+              material={{color: 'grey', backgroundColor: 'white'}}
+              text={{text: 'Added to cart', size: 1.5}} />
+
+            : <Entity
+              position="-42.45 5 8.83"
+              rotation='0 90 0'
+              event-proxy="listen1: mouseenter; target1: #shoe; emit1: rotate; listen2: mouseleave; target2: #shoe; emit2: pause;"
+              onClick={() => this._onItemSelect()}
+              material={{color: 'green'}}
+              text={{text: 'Add to cart', size: 1.5}} />
+          }
+
         </a-entity>
       </Scene>
     );
