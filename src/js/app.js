@@ -43,13 +43,13 @@ class VRScene extends React.Component {
   render () {
     const pdp = {
       item1: {
-        name: 'Nike shoes',
-        description: 'Blue shoes',
+        name: 'Nike Blue shoe',
+        description: 'Blue sport shoes',
         price: '99.67'
       },
       item2: {
-        name: 'Nike shoes',
-        description: 'Blue Orange shoes',
+        name: 'Nike shoe',
+        description: 'Blue-Orange sport shoes',
         price: '109.67'
       }
     };
@@ -67,7 +67,7 @@ class VRScene extends React.Component {
         <Sky src="url(assets/Panorama-360-Grad5.jpg)"/>
 
         <Entity id="shoe1"
-          position='13.47 0 37.37'
+          position='8 0 40'
           rotation='-90 0 0'
           scale="0.25 0.25 0.25"
           obj-model="obj: #nike-blueorange-obj; mtl: #nike-blueorange-mtl">
